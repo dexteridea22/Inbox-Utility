@@ -67,7 +67,7 @@ def gmail_authenticate(request):
 
     while 'nextPageToken' in response:
       page_token = response['nextPageToken']
-      response = service.users().messages().list(userId='me', labelIds=['INBOX'],
+      response = service.users().messages().list(userId='me',
                                          pageToken=page_token).execute()
       messages.extend(response['messages'])
     From    = []
@@ -108,7 +108,6 @@ def gmail_authenticate(request):
     my_dict= {'Msg_id':msg_i,'Date':Date,'From':From,'Subject':subject,'Message':Text}
     df = pd.DataFrame(my_dict,columns = ['Msg_id','Date','From','Subject','Message'])
     df.to_sql('gmailapi_emails', conn, if_exists='append', index=False)
-    conn.close()
     return redirect('/api/v1/Emails')                 
                 
 
@@ -187,7 +186,6 @@ def AutoReply(request):
     my_dict= {'Msg_id':msg_ids,'Label':Label,'Date':Date,'From':From,'To':To,'Subject':Subject,'Message':Message}
     df = pd.DataFrame(my_dict,columns = ['Msg_id','Label','Date','From','To','Subject','Message'])
     df.to_sql('gmailapi_autoreplyids', conn, if_exists='append', index=False)   
-    conn.close()
     return redirect('/api/v1/Emails/')
 
        
