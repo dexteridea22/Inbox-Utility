@@ -1,0 +1,70 @@
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<div>
+    <input type="button" id="buttonId" name="_mail" value="Auto Reply Mail">  
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+     <th>Mail Id</th>
+        <th>Msg ID</th>
+        <th>Date</th>
+        <th>From</th>
+        <th>Subject</th>
+        <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+     {% for item in object_list %}
+    <tr> 
+        <td>{{ item.Mail_id }}</td>
+        <td>{{ item.Msg_id }}</td>
+        <td>{{ item.Date}}</td>
+        <td>{{ item.From}}</td>
+        <td>{{ item.Subject}}</td>
+        <td>{{ item.Message}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+ <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript">
+$('#buttonId').click(function() {    
+    $.ajax({
+        url: {% url 'auto_reply' %},
+        method: 'GET', // or another (GET), whatever you need
+        success: function (data) {        
+            // success callback
+            // you can process data returned by function from views.py
+        }
+    });
+});
+</script>
