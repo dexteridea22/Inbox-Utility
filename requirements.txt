@@ -1,7 +1,7 @@
 cachetools==3.1.1
 certifi==2019.3.9
 chardet==3.0.4
-Django==2.2.2
+Django==2.2.21
 django-filter==2.1.0
 djangorestframework==3.9.4
 google-api-python-client==1.7.9
